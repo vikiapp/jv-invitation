@@ -547,11 +547,11 @@
 
             <!-- NAVIGASI BAWAH LENGKAP -->
             <nav class="fixed bottom-3 left-1/2 -translate-x-1/2 lg:left-auto lg:translate-x-0 lg:right-[25px] w-[92%] max-w-[420px] z-40 bg-studio-charcoal/90 backdrop-blur-xl border border-white/15 rounded-2xl px-2 py-2 shadow-2xl flex items-center justify-around">
-                <a href="#sec-home" class="flex flex-col items-center py-1 px-3 rounded-xl text-studio-champagne"><i class="fa-solid fa-house text-sm"></i><span class="text-[10px] mt-0.5">Sampul</span></a>
-                <a href="#sec-mempelai" class="flex flex-col items-center py-1 px-3 rounded-xl text-studio-light/70"><i class="fa-solid fa-heart text-sm"></i><span class="text-[10px] mt-0.5">Mempelai</span></a>
-                <a href="#sec-acara" class="flex flex-col items-center py-1 px-3 rounded-xl text-studio-light/70"><i class="fa-regular fa-calendar text-sm"></i><span class="text-[10px] mt-0.5">Acara</span></a>
-                <a href="#sec-galeri" class="flex flex-col items-center py-1 px-3 rounded-xl text-studio-light/70"><i class="fa-regular fa-images text-sm"></i><span class="text-[10px] mt-0.5">Galeri</span></a>
-                <a href="#sec-ucapan" class="flex flex-col items-center py-1 px-3 rounded-xl text-studio-light/70"><i class="fa-regular fa-comment-dots text-sm"></i><span class="text-[10px] mt-0.5">Ucapan</span></a>
+                <a href="#sec-home" class="nav-link flex flex-col items-center py-1 px-3 rounded-xl transition-all duration-300 text-studio-champagne scale-110 -translate-y-1 drop-shadow-lg"><i class="fa-solid fa-house text-sm"></i><span class="text-[10px] mt-0.5">Sampul</span></a>
+                <a href="#sec-mempelai" class="nav-link flex flex-col items-center py-1 px-3 rounded-xl transition-all duration-300 text-studio-light/70 hover:text-studio-champagne"><i class="fa-solid fa-heart text-sm"></i><span class="text-[10px] mt-0.5">Mempelai</span></a>
+                <a href="#sec-acara" class="nav-link flex flex-col items-center py-1 px-3 rounded-xl transition-all duration-300 text-studio-light/70 hover:text-studio-champagne"><i class="fa-regular fa-calendar text-sm"></i><span class="text-[10px] mt-0.5">Acara</span></a>
+                <a href="#sec-galeri" class="nav-link flex flex-col items-center py-1 px-3 rounded-xl transition-all duration-300 text-studio-light/70 hover:text-studio-champagne"><i class="fa-regular fa-images text-sm"></i><span class="text-[10px] mt-0.5">Galeri</span></a>
+                <a href="#sec-ucapan" class="nav-link flex flex-col items-center py-1 px-3 rounded-xl transition-all duration-300 text-studio-light/70 hover:text-studio-champagne"><i class="fa-regular fa-comment-dots text-sm"></i><span class="text-[10px] mt-0.5">Ucapan</span></a>
             </nav>
         </main>
     </div>
@@ -808,6 +808,47 @@
             });
         };
 
+        window.setupActiveNav = function() {
+            var navLinks = document.querySelectorAll('.nav-link');
+            var sections = document.querySelectorAll('section');
+
+            // Deteksi saat pengguna melakukan scroll
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        var targetId = entry.target.id;
+                        navLinks.forEach(function(link) {
+                            if (link.getAttribute('href') === '#' + targetId) {
+                                link.classList.remove('text-studio-light/70');
+                                link.classList.add('text-studio-champagne', 'scale-110', '-translate-y-1', 'drop-shadow-lg');
+                            } else {
+                                link.classList.add('text-studio-light/70');
+                                link.classList.remove('text-studio-champagne', 'scale-110', '-translate-y-1', 'drop-shadow-lg');
+                            }
+                        });
+                    }
+                });
+            }, { threshold: 0.25 }); // Memicu pergantian menu ketika 25% area seksi terlihat
+
+            sections.forEach(function(section) {
+                if(section.id) {
+                    observer.observe(section);
+                }
+            });
+
+            // Efek klik instan
+            navLinks.forEach(function(link) {
+                link.addEventListener('click', function() {
+                    navLinks.forEach(function(l) {
+                        l.classList.add('text-studio-light/70');
+                        l.classList.remove('text-studio-champagne', 'scale-110', '-translate-y-1', 'drop-shadow-lg');
+                    });
+                    this.classList.remove('text-studio-light/70');
+                    this.classList.add('text-studio-champagne', 'scale-110', '-translate-y-1', 'drop-shadow-lg');
+                });
+            });
+        };
+
         window.addEventListener('scroll', window.triggerScrollReveal, { passive: true });
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -816,6 +857,7 @@
             window.renderWishes();
             window.loadInitialWishes();
             window.triggerScrollReveal();
+            window.setupActiveNav();
         });
     </script>
 </body>
