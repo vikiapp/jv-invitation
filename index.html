@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Undangan Pernikahan Romeo & Juliet</title>
+  
+  <!-- Font Elegan -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Great+Vibes&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #d4af37;
+      --primary-hover: #b5952f;
+      --bg: #0f1115;
+      --card-bg: rgba(26, 29, 36, 0.7);
+      --card-border: rgba(212, 175, 55, 0.2);
+      --text: #f0f0f2;
+      --text-muted: #9ba1b0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 40%);
+      background-attachment: fixed;
+    }
+
+    /* Screen Cover / Gerbang Autoplay */
+    #coverScreen {
+      position: fixed;
+      inset: 0;
+      background: #0d0e12 url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24px;
+      transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
+    }
+
+    #coverScreen::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(13, 14, 18, 0.82);
+      backdrop-filter: blur(4px);
+    }
+
+    #coverScreen > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cover-subtitle {
+      font-size: 0.95rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+
+    .cover-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3.5rem;
+      color: #ffffff;
+      margin-bottom: 24px;
+      text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+
+    .guest-box {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      padding: 16px 28px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      backdrop-filter: blur(8px);
+    }
+
+    .guest-name {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .btn-action {
+      background: linear-gradient(135deg, #d4af37, #aa820a);
+      color: #0b0c0e;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 1px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .btn-action:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(212, 175, 55, 0.45);
+    }
+
+    /* Floating Music Control */
+    #musicBtn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(212, 175, 55, 0.2);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1000;
+      transition: transform 0.3s;
+    }
+
+    #musicBtn.spinning {
+      animation: spin 4s linear infinite;
+    }
+
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Kontainer Konten */
+    .container {
+      max-width: 580px;
+      margin: 0 auto;
+      padding: 40px 20px 80px 20px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 32px 24px;
+      margin-bottom: 28px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .section-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin-bottom: 12px;
+      letter-spacing: 1.5px;
+    }
+
+    .couple-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3rem;
+      color: #fff;
+      margin: 8px 0;
+    }
+
+    /* Hitung Mundur */
+    .timer-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .timer-unit {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 12px 6px;
+    }
+
+    .timer-val {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .timer-lbl {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+    }
+
+    /* Info Acara */
+    .event-divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--card-border), transparent);
+      margin: 20px 0;
+    }
+
+    .event-details {
+      margin: 12px 0;
+      font-size: 0.95rem;
+    }
+
+    /* Form & Input */
+    input, textarea, select {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      padding: 12px 14px;
+      color: #fff;
+      margin-top: 8px;
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--primary);
+      border: 1px solid var(--primary);
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(212, 175, 55, 0.15);
+    }
+
+    .w-100 {
+      width: 100%;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #252830;
+      border: 1px solid var(--primary);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+      display: none;
+      z-index: 1001;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Audio Background: Menggunakan file lokal 'akad.mp3' (Payung Teduh) -->
+  <audio id="audioEl" loop preload="auto">
+    <source src="akad.mp3" type="audio/mpeg" />
+    <!-- Fallback cadangan jika akad.mp3 belum dimasukkan -->
+    <source src="https://assets.mixkit.co/music/preview/mixkit-romantic-moment-1145.mp3" type="audio/mpeg" />
+  </audio>
+
+  <!-- Tombol Melayang Kontrol Musik -->
+  <div id="musicBtn" title="Putar/Jeda Musik">
+    <svg id="musicIcon" width="22" height="22" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+    </svg>
+  </div>
+
+  <!-- Cover Layar Penuh (Menangani aturan autoplay browser) -->
+  <section id="coverScreen">
+    <p class="cover-subtitle">Pernikahan</p>
+    <h1 class="cover-title">Romeo & Juliet</h1>
+    <div class="guest-box">
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 4px;">Kepada Yth. Bapak/Ibu/Saudara/i:</p>
+      <div class="guest-name" id="coverGuestName">Tamu Istimewa</div>
+    </div>
+    <button class="btn-action" id="openBtn">Buka Undangan</button>
+  </section>
+
+  <!-- Konten Utama -->
+  <main class="container">
+    
+    <!-- Hero Pasangan -->
+    <section class="card">
+      <p class="cover-subtitle">The Wedding of</p>
+      <h2 class="couple-title">Romeo & Juliet</h2>
+      <p style="color: var(--text-muted); font-size: 0.9rem;">
+        "Dan di antara tanda-tanda kebesaran-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya."
+      </p>
+    </section>
+
+    <!-- Hitung Mundur -->
+    <section class="card">
+      <h3 class="section-title">Hitung Mundur</h3>
+      <p style="color: var(--text-muted); font-size: 0.85rem;">Menuju hari berbahagia kami</p>
+      
+      <div class="timer-grid">
+        <div class="timer-unit">
+          <div class="timer-val" id="days">00</div>
+          <div class="timer-lbl">Hari</div>
+        </div>
+        <div class="timer-unit">
+          <div class="timer-val" id="hours">00</div>
+          <div class="timer-lbl">Jam</div>
+        </div>
+        <div class="timer-unit">
+          <div class="timer-val" id="mins">00</div>
+          <div class="timer-lbl">Menit</div>
+        </div>
+        <div class="timer-unit">
+          <div class="timer-val" id="secs">00</div>
+          <div class="timer-lbl">Detik</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Jadwal & Lokasi -->
+    <section class="card">
+      <h3 class="section-title">Waktu & Tempat</h3>
+      
+      <div style="margin-top: 16px;">
+        <h4 style="color: var(--primary);">Akad Nikah</h4>
+        <p class="event-details">Minggu, 15 November 2026<br>08.00 - 10.00 WIB</p>
+      </div>
+
+      <div class="event-divider"></div>
+
+      <div>
+        <h4 style="color: var(--primary);">Resepsi</h4>
+        <p class="event-details">Minggu, 15 November 2026<br>11.00 - 14.00 WIB</p>
+        <p style="color: var(--text-muted); font-size: 0.85rem;">Grand Ballroom Hotel Mulia, Jakarta</p>
+      </div>
+
+      <div style="margin-top: 24px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+        <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+          <button class="btn-action" style="padding: 10px 22px; font-size: 0.85rem;">Lihat Peta Lokasi</button>
+        </a>
+        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Pernikahan+Romeo+dan+Juliet&dates=20261115T010000Z/20261115T070000Z&details=Undangan+Pernikahan+Romeo+%26+Juliet&location=Grand+Ballroom+Hotel+Mulia" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+          <button class="btn-secondary" style="padding: 10px 22px;">Simpan ke Kalender</button>
+        </a>
+      </div>
+    </section>
+
+    <!-- Amplop Digital -->
+    <section class="card">
+      <h3 class="section-title">Tanda Kasih</h3>
+      <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px;">
+        Doa restu Anda merupakan karunia terindah bagi kami. Namun jika ingin memberikan hadiah fisik/digital, Anda dapat menggunakan saluran berikut:
+      </p>
+
+      <div style="background: rgba(0,0,0,0.25); border-radius: 12px; padding: 16px; margin-bottom: 12px;">
+        <p style="font-weight: 600; color: var(--primary);">Bank Central Asia (BCA)</p>
+        <p style="font-size: 1.1rem; letter-spacing: 1px; margin: 4px 0;">5410987654</p>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;">a.n. Romeo Mont</p>
+        <button class="btn-secondary" onclick="copyValue('5410987654')">Salin Nomor Rekening</button>
+      </div>
+
+      <div style="background: rgba(0,0,0,0.25); border-radius: 12px; padding: 16px;">
+        <p style="font-weight: 600; color: var(--primary);">Bank Mandiri</p>
+        <p style="font-size: 1.1rem; letter-spacing: 1px; margin: 4px 0;">1320098765432</p>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;">a.n. Juliet Cap</p>
+        <button class="btn-secondary" onclick="copyValue('1320098765432')">Salin Nomor Rekening</button>
+      </div>
+    </section>
+
+    <!-- Form Konfirmasi Kehadiran & Ucapan -->
+    <section class="card">
+      <h3 class="section-title">Konfirmasi Kehadiran (RSVP)</h3>
+      <form id="rsvpForm" style="text-align: left; margin-top: 16px;">
+        <label style="font-size: 0.85rem; color: var(--text-muted);">Nama Lengkap</label>
+        <input type="text" id="rsvpName" required placeholder="Masukkan nama..." />
+
+        <label style="font-size: 0.85rem; color: var(--text-muted);">Konfirmasi Kehadiran</label>
+        <select id="rsvpStatus">
+          <option value="Hadir">Hadir</option>
+          <option value="Tidak Hadir">Mohon Maaf, Berhalangan</option>
+          <option value="Ragu-ragu">Masih Ragu</option>
+        </select>
+
+        <label style="font-size: 0.85rem; color: var(--text-muted);">Pesan atau Ucapan Doa</label>
+        <textarea id="rsvpMessage" rows="3" required placeholder="Tuliskan harapan dan doa..."></textarea>
+
+        <button type="submit" class="btn-action w-100">Kirim Konfirmasi</button>
+      </form>
+    </section>
+
+  </main>
+
+  <div id="toast" class="toast">Berhasil disalin!</div>
+
+  <script>
+    // 1. Ekstraksi Nama Tamu dari URL (?to=Nama+Tamu)
+    const urlParams = new URLSearchParams(window.location.search);
+    const guestName = urlParams.get('to');
+    if (guestName) {
+      document.getElementById('coverGuestName').textContent = guestName;
+      document.getElementById('rsvpName').value = guestName;
+    }
+
+    // 2. Kontrol Pemutaran Audio & Cover
+    const audio = document.getElementById('audioEl');
+    const cover = document.getElementById('coverScreen');
+    const openBtn = document.getElementById('openBtn');
+    const musicBtn = document.getElementById('musicBtn');
+    let isPlaying = false;
+
+    // Fungsi pemutar audio dengan penanganan promise
+    function playAudioSafe() {
+      audio.play().then(() => {
+        isPlaying = true;
+        musicBtn.classList.add('spinning');
+      }).catch(err => {
+        console.warn("Autoplay audio tertahan browser:", err);
+        isPlaying = false;
+        musicBtn.classList.remove('spinning');
+        // Listener satu kali untuk sentuhan layar pertama jika tombol gagal
+        const touchHandler = () => {
+          audio.play().then(() => {
+            isPlaying = true;
+            musicBtn.classList.add('spinning');
+          });
+          document.removeEventListener('click', touchHandler);
+          document.removeEventListener('touchstart', touchHandler);
+        };
+        document.addEventListener('click', touchHandler, { once: true });
+        document.addEventListener('touchstart', touchHandler, { once: true });
+      });
+    }
+
+    openBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      
+      // Jalankan audio langsung dari interaksi klik
+      playAudioSafe();
+
+      cover.style.transform = 'translateY(-100%)';
+      cover.style.opacity = '0';
+      setTimeout(() => {
+        cover.style.display = 'none';
+      }, 800);
+    });
+
+    musicBtn.addEventListener('click', () => {
+      if (isPlaying) {
+        audio.pause();
+        musicBtn.classList.remove('spinning');
+        isPlaying = false;
+      } else {
+        audio.play().then(() => {
+          musicBtn.classList.add('spinning');
+          isPlaying = true;
+        }).catch(err => console.log(err));
+      }
+    });
+
+    // 3. Logika Hitung Mundur (Target: 15 November 2026 08:00 WIB)
+    const targetDate = new Date('2026-11-15T08:00:00+07:00').getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance > 0) {
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById('days').innerText = String(days).padStart(2, '0');
+        document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+        document.getElementById('mins').innerText = String(minutes).padStart(2, '0');
+        document.getElementById('secs').innerText = String(seconds).padStart(2, '0');
+      }
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // 4. Salin Nomor Rekening
+    function copyValue(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('Nomor rekening berhasil disalin!');
+      });
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.style.display = 'block';
+      setTimeout(() => {
+        toast.style.display = 'none';
+      }, 2500);
+    }
+
+    // 5. Penanganan Pengiriman RSVP
+    document.getElementById('rsvpForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      showToast('Terima kasih! Konfirmasi kehadiran Anda telah tersimpan.');
+      document.getElementById('rsvpMessage').value = '';
+    });
+  </script>
+</body>
+</html>
