@@ -305,30 +305,31 @@
         <!-- MOBILE-FIRST INVITATION -->
         <main class="w-full max-w-[460px] min-h-screen bg-studio-dark relative shadow-2xl border-x border-white/10 pb-24">
             <!-- 1. HERO -->
-            <section id="sec-home" class="relative min-h-screen flex flex-col items-center justify-center p-6 pb-20 overflow-hidden studio-spotlight-dark">
-                <div class="absolute top-[20%] left-1/2 -translate-x-1/2 w-[300px] h-[300px] rounded-full bg-white/10 blur-2xl pointer-events-none"></div>
-                
-                <div class="relative z-10 text-center flex-none">
-                    <p class="text-[10px] tracking-[0.35em] uppercase text-studio-champagne font-medium">Pernikahan Suci</p>
-                    <h2 class="font-serif text-4xl sm:text-5xl text-studio-cream mt-1.5">
+            <section id="sec-home" class="relative min-h-[92vh] flex flex-col justify-between p-6 pt-12 overflow-hidden studio-spotlight-dark">
+                <div class="absolute top-[22%] left-1/2 -translate-x-1/2 w-[330px] h-[330px] rounded-full bg-white/10 blur-xl pointer-events-none"></div>
+                <div class="relative z-10 text-center">
+                    <p class="text-[11px] tracking-[0.35em] uppercase text-studio-champagne font-medium">Pernikahan Suci</p>
+                    <h2 class="font-serif text-4xl sm:text-5xl text-studio-cream mt-1">
                         <span class="couple-bride-short">Jinggan</span>
                         <span class="font-script text-studio-champagne text-3xl mx-1">&amp;</span>
                         <span class="couple-groom-short">Viki</span>
                     </h2>
-                    <p class="text-[11px] text-studio-light/70 tracking-[0.2em] uppercase mt-1.5">Senin, 16 November 2026</p>
+                    <p class="text-xs text-studio-light/70 tracking-[0.2em] uppercase mt-1">Senin, 16 November 2026</p>
                 </div>
-
-                <div class="relative z-10 mx-auto mt-6 mb-5 flex-none">
-                    <div class="w-56 h-[320px] sm:w-64 sm:h-[350px] arch-frame p-2 border border-studio-champagne/40 bg-white/5 backdrop-blur-sm shadow-2xl relative">
+                
+                <!-- Margin mb-6 dikurangi menjadi mb-2 agar jarak ke teks bawah lebih rapat -->
+                <div class="relative z-10 mt-6 mb-2 mx-auto">
+                    <div class="w-64 sm:w-72 h-[370px] sm:h-[400px] arch-frame p-2 border border-studio-champagne/40 bg-white/5 backdrop-blur-sm shadow-2xl relative">
                         <div class="w-full h-full arch-frame overflow-hidden studio-spotlight relative">
                             <img data-gdrive-id="16-Ok5Ga-mmLLSWgAo-qQUxvr5gWgygID" src="https://drive.google.com/thumbnail?id=16-Ok5Ga-mmLLSWgAo-qQUxvr5gWgygID&sz=w1600" onerror="window.handleImageFallback(this, '16-Ok5Ga-mmLLSWgAo-qQUxvr5gWgygID')" alt="Portrait" class="couple-main-img relative z-10 w-full h-full object-cover object-top">
                         </div>
                     </div>
                 </div>
-
-                <div class="relative z-10 text-center flex-none">
-                    <p class="text-[11px] font-serif italic text-studio-light/80 max-w-[260px] mx-auto leading-relaxed">"Mencintai bukan sekadar saling memandang, melainkan melihat bersama ke arah yang sama."</p>
-                    <a href="#sec-mempelai" class="inline-flex flex-col items-center mt-3 text-studio-champagne/80 hover:text-studio-champagne text-[10px] tracking-widest uppercase transition-colors">
+                
+                <!-- Padding atas dihapus, ditambah padding bawah (pb-12) agar terdorong naik -->
+                <div class="relative z-10 text-center pb-12">
+                    <p class="text-xs font-serif italic text-studio-light/80 max-w-xs mx-auto">"Mencintai bukan sekadar saling memandang, melainkan melihat bersama ke arah yang sama."</p>
+                    <a href="#sec-mempelai" class="inline-flex flex-col items-center mt-2.5 text-studio-champagne/80 hover:text-studio-champagne text-[11px] tracking-widest uppercase">
                         <span>Geser ke Bawah</span>
                         <i class="fa-solid fa-chevron-down mt-1 animate-bounce"></i>
                     </a>
@@ -496,8 +497,8 @@
                         <div>
                             <label class="block text-xs text-studio-light/80 mb-1.5">Kehadiran</label>
                             <select id="rsvpStatus" class="w-full px-3.5 py-3 rounded-xl bg-studio-charcoal border border-white/15 text-sm text-studio-cream focus:outline-none focus:border-studio-champagne">
-                                <option value="Hadir">InsyaAllah Hadir</option>
-                                <option value="Berhalangan">Maaf, Berhalangan</option>
+                                <option value="Hadir">Hadir</option>
+                                <option value="Berhalangan">Berhalangan</option>
                             </select>
                         </div>
                         <div>
@@ -535,7 +536,7 @@
                     Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir.
                 </p>
                 <p class="text-xs text-studio-champagne uppercase tracking-widest mt-6">Kami yang berbahagia,</p>
-                <h3 class="font-serif text-3xl text-studio-cream mt-1">Jinggan &amp; Viki</h3>
+                <h3 class="font-serif text-3xl text-studio-cream mt-1">Keluarga Jinggan &amp; Viki</h3>
                 <div class="mt-8 flex items-center justify-center gap-2">
                     <button type="button" onclick="window.promptAdminPin()" class="text-studio-light/40 hover:text-studio-champagne text-[11px] transition p-1.5 flex items-center gap-1 cursor-pointer">
                         <i class="fa-solid fa-lock"></i>
