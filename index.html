@@ -47,12 +47,11 @@
         window.GDRIVE_GROOM_ID = "1-eA3B8Z2OWln0Bjk_M5PxDkWTXOM-13L";
         window.GDRIVE_LOGO_ID = "1ndPL6lDCGIZglSFr5cDPrBoIvcoCX1WX";
 
-        // Variabel Global Admin & APPS SCRIPT URL
-        // TODO: GANTI URL DI BAWAH INI DENGAN URL WEB APP BARU ANDA
+        // URL Web App Apps Script (Sudah terhubung aktif)
         window.APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzgHKyEOZavI7OdVvdWGa-0K9S74fndZg33EBnqyP5vV2LaaVCtrWc27op-Kdc-72PL/exec";
         
+        // Status Admin (PIN Dihapus dari frontend untuk keamanan 100%)
         window.toastTimeout = null;
-        window.ADMIN_SECRET_PIN = "161126";
         window.isAdminActive = false;
         window.activeAdminPin = "";
 
@@ -108,7 +107,7 @@
                     window.isPlaying = true;
                     if (icon) {
                         icon.classList.remove('fa-music');
-                        icon.classList.add('fa-compact-disc', 'fa-spin'); // Efek piringan berputar
+                        icon.classList.add('fa-compact-disc', 'fa-spin');
                     }
                     if (ping) ping.classList.remove('hidden');
                 }).catch(function(err) {
@@ -130,12 +129,27 @@
                 window.isPlaying = false;
                 if (icon) {
                     icon.classList.remove('fa-compact-disc', 'fa-spin');
-                    icon.classList.add('fa-music'); // Kembali ke icon musik diam
+                    icon.classList.add('fa-music');
                 }
                 if (ping) ping.classList.add('hidden');
             } else {
                 window.playMusic();
             }
+        };
+
+        // Lightbox Galeri
+        window.openLightbox = function() {
+            var modal = document.getElementById('lightboxModal');
+            if (!modal) return;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        };
+
+        window.closeLightbox = function() {
+            var modal = document.getElementById('lightboxModal');
+            if (!modal) return;
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
         };
     </script>
 
@@ -176,6 +190,7 @@
         <source src="akad.mp3" type="audio/mp3">
     </audio>
 
+    <!-- ADMIN CONTROL BAR -->
     <div id="adminControlBar" class="admin-only-btn hidden fixed top-4 left-4 z-[92] items-center gap-2 bg-studio-charcoal/95 backdrop-blur-md border border-studio-champagne/50 px-3.5 py-2 rounded-full shadow-2xl">
         <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
         <span class="text-[11px] font-semibold text-studio-cream">Mode Admin (Aktif)</span>
@@ -185,6 +200,7 @@
         </button>
     </div>
 
+    <!-- ADMIN PIN MODAL -->
     <div id="adminPinModal" class="fixed inset-0 z-[110] bg-black/85 backdrop-blur-md hidden items-center justify-center p-4">
         <form onsubmit="event.preventDefault(); window.verifyAdminPin();" class="bg-studio-charcoal border border-studio-champagne/40 rounded-3xl max-w-xs w-full p-6 text-center shadow-2xl">
             <div class="w-12 h-12 rounded-full bg-studio-champagne/15 border border-studio-champagne/40 flex items-center justify-center mx-auto text-studio-champagne text-lg mb-3">
@@ -200,6 +216,7 @@
         </form>
     </div>
 
+    <!-- TOAST NOTIFICATION -->
     <div id="toastBox" class="fixed top-5 left-1/2 -translate-x-1/2 z-[140] pointer-events-none opacity-0 -translate-y-4 transition-all duration-300">
         <div class="bg-studio-charcoal/95 backdrop-blur-md border border-studio-champagne/50 text-studio-cream px-5 py-3 rounded-full shadow-2xl flex items-center gap-3 text-xs sm:text-sm font-medium whitespace-nowrap">
             <i id="toastIcon" class="fa-solid fa-circle-check text-studio-champagne text-base"></i>
@@ -287,7 +304,7 @@
 
         <!-- MOBILE-FIRST INVITATION -->
         <main class="w-full max-w-[460px] min-h-screen bg-studio-dark relative shadow-2xl border-x border-white/10 pb-24">
-            <!-- HERO -->
+            <!-- 1. HERO -->
             <section id="sec-home" class="relative min-h-[92vh] flex flex-col justify-between p-6 pt-12 overflow-hidden studio-spotlight-dark">
                 <div class="absolute top-[22%] left-1/2 -translate-x-1/2 w-[330px] h-[330px] rounded-full bg-white/10 blur-xl pointer-events-none"></div>
                 <div class="relative z-10 text-center">
@@ -315,7 +332,7 @@
                 </div>
             </section>
 
-            <!-- AYAT -->
+            <!-- 2. AYAT -->
             <section class="px-6 py-12 bg-studio-charcoal relative overflow-hidden border-t border-white/5">
                 <div class="reveal-item bg-studio-dark/70 border border-studio-champagne/25 rounded-3xl p-6 text-center shadow-xl">
                     <p class="font-arabic text-2xl sm:text-3xl text-studio-champagne mb-4 leading-relaxed">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
@@ -330,7 +347,7 @@
                 </div>
             </section>
 
-            <!-- PROFIL -->
+            <!-- 3. PROFIL -->
             <section id="sec-mempelai" class="px-6 py-14 bg-studio-dark relative">
                 <div class="reveal-item text-center mb-10">
                     <p class="text-[11px] uppercase tracking-[0.3em] text-studio-champagne">Assalamu’alaikum Wr. Wb.</p>
@@ -365,7 +382,7 @@
                 </div>
             </section>
 
-            <!-- ACARA -->
+            <!-- 4. ACARA -->
             <section id="sec-acara" class="px-6 py-14 bg-studio-charcoal border-t border-white/5 relative">
                 <div class="reveal-item text-center mb-8">
                     <p class="text-[11px] uppercase tracking-[0.3em] text-studio-champagne">Menuju Hari Bahagia</p>
@@ -411,7 +428,35 @@
                 </div>
             </section>
 
-            <!-- RSVP -->
+            <!-- 5. GALERI PREWEDDING (DIKEMBALIKAN UTUH) -->
+            <section id="sec-galeri" class="px-6 py-14 bg-studio-charcoal border-t border-white/5">
+                <div class="reveal-item text-center mb-8">
+                    <p class="text-[11px] uppercase tracking-[0.3em] text-studio-champagne">Momen Bahagia</p>
+                    <h2 class="font-serif text-3xl sm:text-4xl text-studio-cream mt-1">Galeri Prewedding</h2>
+                    <p class="text-xs text-studio-light/60 mt-1">Ketuk foto untuk memperbesar tampilan penuh</p>
+                </div>
+
+                <div class="reveal-item">
+                    <div onclick="window.openLightbox()" class="w-full h-[440px] rounded-3xl studio-spotlight overflow-hidden border border-studio-champagne/40 relative cursor-pointer group shadow-2xl">
+                        <img data-gdrive-id="16-Ok5Ga-mmLLSWgAo-qQUxvr5gWgygID"
+                             src="https://drive.google.com/thumbnail?id=16-Ok5Ga-mmLLSWgAo-qQUxvr5gWgygID&sz=w1600" 
+                             onerror="window.handleImageFallback(this, '16-Ok5Ga-mmLLSWgAo-qQUxvr5gWgygID')" 
+                             alt="Galeri Utama" 
+                             class="couple-main-img relative z-10 w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent z-20 flex items-end justify-between p-5">
+                            <div>
+                                <p class="text-[10px] uppercase tracking-widest text-studio-champagne">Studio Portrait</p>
+                                <p class="font-serif text-lg text-white">Jinggan &amp; Viki</p>
+                            </div>
+                            <span class="w-9 h-9 rounded-full bg-white/15 backdrop-blur-md flex items-center justify-center text-white text-xs">
+                                <i class="fa-solid fa-expand"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. RSVP & UCAPAN -->
             <section id="sec-ucapan" class="px-6 py-14 bg-studio-charcoal border-t border-white/5">
                 <div class="reveal-item text-center mb-8">
                     <p class="text-[11px] uppercase tracking-[0.3em] text-studio-champagne">Konfirmasi &amp; Doa Restu</p>
@@ -433,7 +478,6 @@
                         </div>
                         <div>
                             <label class="block text-xs text-studio-light/80 mb-1.5">Jumlah Tamu</label>
-                            <!-- UPDATED: Menambahkan opsi 1 Keluarga -->
                             <select id="rsvpGuests" class="w-full px-3.5 py-3 rounded-xl bg-studio-charcoal border border-white/15 text-sm text-studio-cream focus:outline-none focus:border-studio-champagne">
                                 <option value="1 Orang">1 Orang</option>
                                 <option value="2 Orang">2 Orang</option>
@@ -457,11 +501,15 @@
                 <div id="wishesContainer" class="space-y-3 max-h-[345px] overflow-y-auto pr-1.5 scroll-smooth"></div>
             </section>
             
-            <!-- PENUTUP -->
+            <!-- 7. PENUTUP -->
             <section class="px-6 py-16 bg-studio-dark border-t border-white/5 text-center relative overflow-hidden">
                 <div class="w-28 h-36 mx-auto arch-frame studio-spotlight overflow-hidden border border-studio-champagne/40 mb-5 relative">
                     <img data-gdrive-id="16-Ok5Ga-mmLLSWgAo-qQUxvr5gWgygID" src="https://drive.google.com/thumbnail?id=16-Ok5Ga-mmLLSWgAo-qQUxvr5gWgygID&sz=w1600" onerror="window.handleImageFallback(this, '16-Ok5Ga-mmLLSWgAo-qQUxvr5gWgygID')" alt="Penutup" class="w-full h-full object-cover object-top">
                 </div>
+                <!-- Kalimat Permintaan Ditambahkan -->
+                <p class="text-xs text-studio-light/80 max-w-xs mx-auto leading-relaxed">
+                    Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir.
+                </p>
                 <p class="text-xs text-studio-champagne uppercase tracking-widest mt-6">Kami yang berbahagia,</p>
                 <h3 class="font-serif text-3xl text-studio-cream mt-1">Jinggan &amp; Viki</h3>
                 <div class="mt-8 flex items-center justify-center gap-2">
@@ -472,13 +520,44 @@
                 </div>
             </section>
 
+            <!-- NAVIGASI BAWAH LENGKAP -->
             <nav class="fixed bottom-3 left-1/2 -translate-x-1/2 lg:left-auto lg:translate-x-0 lg:right-[25px] w-[92%] max-w-[420px] z-40 bg-studio-charcoal/90 backdrop-blur-xl border border-white/15 rounded-2xl px-2 py-2 shadow-2xl flex items-center justify-around">
                 <a href="#sec-home" class="flex flex-col items-center py-1 px-3 rounded-xl text-studio-champagne"><i class="fa-solid fa-house text-sm"></i><span class="text-[10px] mt-0.5">Sampul</span></a>
                 <a href="#sec-mempelai" class="flex flex-col items-center py-1 px-3 rounded-xl text-studio-light/70"><i class="fa-solid fa-heart text-sm"></i><span class="text-[10px] mt-0.5">Mempelai</span></a>
                 <a href="#sec-acara" class="flex flex-col items-center py-1 px-3 rounded-xl text-studio-light/70"><i class="fa-regular fa-calendar text-sm"></i><span class="text-[10px] mt-0.5">Acara</span></a>
+                <a href="#sec-galeri" class="flex flex-col items-center py-1 px-3 rounded-xl text-studio-light/70"><i class="fa-regular fa-images text-sm"></i><span class="text-[10px] mt-0.5">Galeri</span></a>
                 <a href="#sec-ucapan" class="flex flex-col items-center py-1 px-3 rounded-xl text-studio-light/70"><i class="fa-regular fa-comment-dots text-sm"></i><span class="text-[10px] mt-0.5">Ucapan</span></a>
             </nav>
         </main>
+    </div>
+
+    <!-- LIGHTBOX PREVIEW MODAL -->
+    <div id="lightboxModal" onclick="window.closeLightbox()" class="fixed inset-0 z-[120] bg-black/95 backdrop-blur-md hidden flex-col items-center justify-between p-4 sm:p-6 select-none">
+        <div class="w-full max-w-md flex items-center justify-between z-10 pt-1" onclick="event.stopPropagation()">
+            <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-studio-champagne"></span>
+                <span class="text-xs font-serif tracking-widest uppercase text-studio-cream/90">Galeri Prewedding</span>
+            </div>
+            <button type="button" onclick="window.closeLightbox()" class="px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-studio-champagne/40 text-studio-cream text-xs font-medium flex items-center gap-1.5 transition active:scale-95 cursor-pointer">
+                <i class="fa-solid fa-xmark text-studio-champagne"></i>
+                <span>Tutup</span>
+            </button>
+        </div>
+
+        <div class="relative my-auto w-full max-w-lg flex items-center justify-center overflow-hidden py-2" onclick="event.stopPropagation()">
+            <img data-gdrive-id="16-Ok5Ga-mmLLSWgAo-qQUxvr5gWgygID"
+                 src="https://drive.google.com/thumbnail?id=16-Ok5Ga-mmLLSWgAo-qQUxvr5gWgygID&sz=w1600" 
+                 onerror="window.handleImageFallback(this, '16-Ok5Ga-mmLLSWgAo-qQUxvr5gWgygID')" 
+                 alt="Preview Utuh" 
+                 class="w-auto max-w-full max-h-[74vh] object-contain rounded-2xl border border-studio-champagne/30 shadow-2xl studio-spotlight">
+        </div>
+
+        <div class="w-full max-w-xs z-10 pb-2 text-center" onclick="event.stopPropagation()">
+            <button type="button" onclick="window.closeLightbox()" class="w-full py-3 px-6 rounded-full btn-gold-shimmer text-studio-dark font-semibold text-xs uppercase tracking-wider shadow-lg flex items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Kembali ke Undangan</span>
+            </button>
+        </div>
     </div>
 
     <!-- JAVASCRIPT CORE LOGIC -->
@@ -537,7 +616,6 @@
                 var badgeClass = item.status === 'Hadir' ? 'bg-emerald-500/15 text-emerald-300' : 'bg-amber-500/15 text-amber-300';
                 var adminDeleteBtn = window.isAdminActive ? `<button type="button" onclick="window.deleteWish('${escapeHtml(String(item.id))}')" class="px-2.5 py-1 rounded-lg bg-red-500/20 text-red-300 text-[10px]">Hapus</button>` : '';
 
-                // UPDATED: Menggabungkan status dengan jumlah kehadiran (Contoh: "Hadir • 1 Keluarga")
                 var guestText = item.guests ? ` • ${escapeHtml(item.guests)}` : '';
 
                 card.innerHTML = `
@@ -573,7 +651,7 @@
             var btn = document.getElementById('rsvpSubmitBtn');
             var name = document.getElementById('rsvpName').value.trim();
             var status = document.getElementById('rsvpStatus').value;
-            var guests = document.getElementById('rsvpGuests').value; // Mengambil data 1 Keluarga
+            var guests = document.getElementById('rsvpGuests').value;
             var message = document.getElementById('rsvpMessage').value.trim();
             if (!name || !message) return;
 
@@ -589,7 +667,6 @@
                 timestamp: Date.now()
             };
 
-            // Tampilkan sementara agar user tidak menunggu loading
             window.wishesList.unshift(newWish);
             window.renderWishes();
             document.getElementById('rsvpMessage').value = '';
@@ -639,7 +716,7 @@
             });
         };
 
-        // PENGATURAN ADMIN
+        // PENGATURAN ADMIN (VERIFIKASI KE SERVER DATABASE)
         window.promptAdminPin = function() {
             document.getElementById('adminPinModal').classList.remove('hidden');
             document.getElementById('adminPinModal').classList.add('flex');
@@ -650,17 +727,40 @@
         };
         window.verifyAdminPin = function() {
             var inputPin = document.getElementById('adminPinInput').value;
-            if (inputPin === window.ADMIN_SECRET_PIN) {
-                window.closeAdminPinModal();
-                window.isAdminActive = true;
-                window.activeAdminPin = inputPin;
-                document.getElementById('adminControlBar').classList.remove('hidden');
-                document.getElementById('adminControlBar').classList.add('flex');
-                window.renderWishes();
-                window.showToast('Mode Admin Aktif');
-            } else {
-                window.showToast('PIN Salah!');
-            }
+            if (!inputPin) return;
+            
+            var btn = document.querySelector('#adminPinModal button[type="submit"]');
+            var originalText = btn.innerHTML;
+            btn.innerHTML = "Mengecek...";
+            btn.disabled = true;
+
+            fetch(window.APPS_SCRIPT_URL, {
+                method: "POST",
+                body: JSON.stringify({ action: 'verify_pin', pin: inputPin }),
+                headers: { "Content-Type": "text/plain;charset=utf-8" }
+            })
+            .then(res => res.json())
+            .then(res => {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                if (res.status === 'success') {
+                    window.closeAdminPinModal();
+                    window.isAdminActive = true;
+                    window.activeAdminPin = inputPin;
+                    document.getElementById('adminControlBar').classList.remove('hidden');
+                    document.getElementById('adminControlBar').classList.add('flex');
+                    window.renderWishes();
+                    window.showToast('Mode Admin Aktif');
+                    document.getElementById('adminPinInput').value = '';
+                } else {
+                    window.showToast('PIN Salah!');
+                }
+            })
+            .catch(err => {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                window.showToast('Terjadi kesalahan koneksi.');
+            });
         };
         window.switchToGuestPreview = function() {
             window.isAdminActive = false;
