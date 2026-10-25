@@ -402,6 +402,15 @@
                         <span id="cd-secs" class="font-serif text-2xl sm:text-3xl font-bold text-studio-champagne block">00</span><span class="text-[10px] uppercase tracking-widest text-studio-light/70">Detik</span>
                     </div>
                 </div>
+
+                <!-- Tombol Google Calendar -->
+                <div class="reveal-item text-center mb-10">
+                    <button type="button" onclick="window.saveToGoogleCalendar()" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/5 hover:bg-white/10 border border-studio-champagne/40 text-studio-champagne text-xs font-medium transition cursor-pointer">
+                        <i class="fa-regular fa-calendar-check"></i>
+                        <span>Simpan ke Google Calendar</span>
+                    </button>
+                </div>
+
                 <div class="space-y-5 mt-10">
                     <div class="reveal-item bg-studio-dark border border-white/10 rounded-3xl p-6 relative overflow-hidden shadow-xl">
                         <div class="w-12 h-12 rounded-2xl bg-studio-champagne/15 border border-studio-champagne/30 flex items-center justify-center text-studio-champagne text-xl mb-4">
@@ -413,6 +422,12 @@
                             <p class="flex items-center gap-2.5"><i class="fa-regular fa-clock text-studio-champagne w-4"></i><span>Pukul 10.00 WIB – Selesai</span></p>
                             <p class="flex items-start gap-2.5"><i class="fa-solid fa-location-dot text-studio-champagne w-4 mt-0.5"></i><span>Kediaman Mempelai Wanita (Rumah Kauman Tempurejo)</span></p>
                         </div>
+                        <div class="mt-5">
+                            <a href="https://maps.app.goo.gl/BTf7tmbwcTsHZcv86" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-studio-champagne/40 text-studio-champagne font-semibold text-xs text-center flex items-center justify-center gap-2 transition">
+                                <i class="fa-solid fa-location-arrow"></i>
+                                <span>Petunjuk Lokasi Akad (Google Maps)</span>
+                            </a>
+                        </div>
                     </div>
                     <div class="reveal-item bg-studio-dark border border-white/10 rounded-3xl p-6 relative overflow-hidden shadow-xl">
                         <div class="w-12 h-12 rounded-2xl bg-studio-champagne/15 border border-studio-champagne/30 flex items-center justify-center text-studio-champagne text-xl mb-4">
@@ -423,6 +438,12 @@
                         <div class="mt-4 pt-4 border-t border-white/10 space-y-2 text-xs text-studio-light/80">
                             <p class="flex items-center gap-2.5"><i class="fa-regular fa-clock text-studio-champagne w-4"></i><span>Pukul 15.00 – 20.00 WIB</span></p>
                             <p class="flex items-start gap-2.5"><i class="fa-solid fa-location-dot text-studio-champagne w-4 mt-0.5"></i><span>Kediaman Mempelai Wanita (Rumah Kauman Tempurejo)</span></p>
+                        </div>
+                        <div class="mt-5">
+                            <a href="https://maps.app.goo.gl/BTf7tmbwcTsHZcv86" target="_blank" rel="noopener noreferrer" class="w-full py-3 rounded-xl btn-gold-shimmer text-studio-dark font-semibold text-xs text-center flex items-center justify-center gap-2 shadow-md">
+                                <i class="fa-solid fa-map-location-dot"></i>
+                                <span>Buka Lokasi di Google Maps</span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -472,7 +493,7 @@
                         <div>
                             <label class="block text-xs text-studio-light/80 mb-1.5">Kehadiran</label>
                             <select id="rsvpStatus" class="w-full px-3.5 py-3 rounded-xl bg-studio-charcoal border border-white/15 text-sm text-studio-cream focus:outline-none focus:border-studio-champagne">
-                                <option value="Hadir">InsyaAllah Hadir</option>
+                                <option value="Hadir">Insyaallah Hadir</option>
                                 <option value="Berhalangan">Maaf, Berhalangan</option>
                             </select>
                         </div>
@@ -481,7 +502,7 @@
                             <select id="rsvpGuests" class="w-full px-3.5 py-3 rounded-xl bg-studio-charcoal border border-white/15 text-sm text-studio-cream focus:outline-none focus:border-studio-champagne">
                                 <option value="1 Orang">1 Orang</option>
                                 <option value="2 Orang">2 Orang</option>
-                                <option value="1 Keluarga">1 Keluarga</option>
+                                <option value="Keluarga Besar">Keluarga Besar</option>
                             </select>
                         </div>
                     </div>
@@ -591,6 +612,13 @@
             if(document.getElementById('cd-mins')) document.getElementById('cd-mins').textContent = String(mins).padStart(2, '0');
             if(document.getElementById('cd-secs')) document.getElementById('cd-secs').textContent = String(secs).padStart(2, '0');
         }
+
+        window.saveToGoogleCalendar = function() {
+            var title = encodeURIComponent("Pernikahan Jinggan Tirai Kasih & Mohammad Viki");
+            var details = encodeURIComponent("Akad & Resepsi: Senin, 16 November 2026 di Kediaman Mempelai Wanita (Rumah Kauman Tempurejo)");
+            var location = encodeURIComponent("https://maps.app.goo.gl/BTf7tmbwcTsHZcv86");
+            window.open("https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + title + "&dates=20261116T030000Z/20261116T130000Z&details=" + details + "&location=" + location, '_blank');
+        };
 
         window.wishesList = [];
 
